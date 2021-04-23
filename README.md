@@ -1,6 +1,6 @@
 # Disaster Response Pipeline Project
 
-Project Overview
+##Project Overview
 
 In this project we going to apply learned skills on Software development and pipeline for ELT, ML, NLP, to analyze disaster data from Figure Eight to build a model for an API that classifies disaster messages. 
 
@@ -59,7 +59,7 @@ The project include a web app where an emergency worker can input a new message 
     ../models/train_classifier.py - model training script
     
     ../models/classifier.pkl - saved model when running `python train_classifier.py`
-    
+
 
 
 4.  ../app - folder for web app
