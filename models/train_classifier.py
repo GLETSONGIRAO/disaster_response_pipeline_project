@@ -21,6 +21,16 @@ nltk.download('wordnet')
 nltk.download('stopwords')
 
 def load_data(database_filepath):
+    """
+    Function for load the data
+    
+    Args:
+        database_filepath (string): path to SQLite db
+    Returns:
+        X (Series): Series of messages column in loaded dataframe
+        Y (dataframe): Labels DataFrame
+        category_names (list): list of Y dataframe columns
+    """
     engine = create_engine('sqlite:///{}'.format(database_filepath))
     df = pd.read_sql_table('messages', engine)
     X = df['message']
@@ -30,17 +40,30 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+     """Function to tokenize and Lemmatize text string
+    
+    Args:
+        text (string): String containing message for processing.
+       
+    Returns:
+        List of processed tokens.
+    """
     tokens = nltk.word_tokenize(text)
     lemmatizer = nltk.WordNetLemmatizer()
     return [lemmatizer.lemmatize(word).lower().strip() for word in tokens]
 
 
 def build_model():
+     """Build model.
+
+    Returns:
+        cv (GridSearchCV object): Contains a sklearn estimator.
+    """
     pipeline = Pipeline([
                     ('tfidf', TfidfVectorizer(tokenizer=tokenize)),
                     ('clf', MultiOutputClassifier(RandomForestClassifier()))
                     ])
-    #X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=13)
+    
     
     parameters = {'clf__estimator__max_depth': [5, 15],
               'clf__estimator__min_samples_leaf': [2, 5],
@@ -51,13 +74,21 @@ def build_model():
     cv = GridSearchCV(pipeline, parameters, cv=3, n_jobs=-1)
     return cv
 
-    #cv.fit(X_train['message'], Y_train)
+    
     
     
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
-    Y_pred = cv.predict(X_test)
+    """Function to evaluate the model
+
+    args:
+        model (sklearn.model_selection.GridSearchCV): Sklearn estimator "cv" on last function
+        X_test (numpy.ndarray): Disaster messages.
+        Y_test (numpy.ndarray): Disaster categories for each messages
+        category_names (list): Disaster category names.
+    """
+    Y_pred = model.predict(X_test)
     
     for i, col in enumerate(Y_test):
         print(col)
@@ -66,9 +97,15 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
-    
+    '''
+    function to save the model as a pkl file
+
+    Args:
+        model (sklearn model): Results of grid serach best parameters for the model
+        model_filepath (string): The path which we want to save the file
+    '''
     import joblib
-    joblib.dump(cv.best_estimator_, model_filepath)
+    joblib.dump(model.best_estimator_, model_filepath)
 
 
 def main():
