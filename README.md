@@ -10,9 +10,9 @@ The project include a web app where an emergency worker can input a new message 
 1. Run the following commands in the project's root directory to set up your database and model.
 
     - To run ETL pipeline that cleans data and stores in database
-        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
+        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/disaster-response.db`
     - To run ML pipeline that trains classifier and saves
-        `python models/train_classifier.py data/DisasterResponse.db models/disaster_model.pkl`
+        `python models/train_classifier.py data/disaster-response.db models/disaster_model.pkl`
 
 2. Run the following command in the app's directory to run your web app.
     `python run.py`
@@ -73,3 +73,22 @@ The project include a web app where an emergency worker can input a new message 
 
 5.  README.md
 
+### Web application Demo:
+
+This image shows the appearence of the page:
+<br>
+<br>
+<img src='homepage.PNG' width='800'>
+
+Example of classification results for a new message input: "they are in a area near a mountain hungry, sick their is no water please remember us"
+<br>
+<br>
+<img src='homepage.PNG' width='800'>
+
+### Acknowledgements:
+
+I want to thank the Udacity comumnity for the very aprreciated insights on the project HUB.
+
+Thank to the mentor for the very enlightening review on my first submission.
+
+Finally, thank to Figure 8 for the data and project idea.
