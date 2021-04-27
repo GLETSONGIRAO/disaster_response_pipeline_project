@@ -78,12 +78,12 @@ The project include a web app where an emergency worker can input a new message 
 This image shows the appearence of the page:
 <br>
 <br>
-<img src='homepage.PNG' width='800'>
+<img src='app/homepage.PNG' width='800'>
 
 Example of classification results for a new message input: "they are in a area near a mountain hungry, sick their is no water please remember us"
 <br>
 <br>
-<img src='homepage.PNG' width='800'>
+<img src='app/example.PNG' width='800'>
 
 ### Acknowledgements:
 
